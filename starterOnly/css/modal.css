@@ -27,15 +27,36 @@ p {
 }
 
 img {
-  padding-right: 1rem;
+  padding-right: 1rem; 
 }
+@media screen and (max-width: 540px) {
+  img {
+    padding-right: 1rem; /* code modifié*/
+    padding-top: 7px; /* code ajouté*/
+    width: 100%; /* code ajouté*/
+  }
+} 
 
 .topnav {
   overflow: hidden;
   margin: 3.5%;
 }
+/* code ajouté*/
+/*@media screen and (max-width: 540px) {
+  .topnav {
+    padding: 4% 5px;
+    margin: 0px;
+  }
+}
+/* code ajouté*/
 .header-logo {
     float: left;
+}
+@media screen and (max-width: 540px) {
+  .header-logo {
+    height: 52px; /* code ajouté*/
+    width: 70%; /* code ajouté*/
+}
 }
 .main-navbar {
     float: right;
@@ -73,6 +94,9 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
+    /*position: absolute;
+    right: 0;
+    top: 0;*/
   }
 }
 
@@ -97,7 +121,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    margin-top: 10px; /* code modifié , de base valeur a -15*/
   }
 } 
 
@@ -186,6 +210,18 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  display: block;
+}
+
+.confirmation {
+  padding: 15px 8%;
+  margin: 15px auto;
+  height: 250px;
+  display: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
 }
 
 label {
@@ -422,6 +458,13 @@ input[data-error]::after {
   text-align: left;
   min-width: 424px;
 }
+/* code ajouté*/
+@media screen and (max-width: 540px) {
+  .hero-content {
+    min-width: 100%;
+  }
+}
+/* code ajouté*/
 .hero-content::after {
   content: "";
   width: 100%;
@@ -487,6 +530,12 @@ footer {
     background: #fff;
     color: #000;
     padding: 20px;
+    /* code ajouté*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    /* code ajouté*/
   }
   .hero-content::after {
     content: unset;
@@ -495,7 +544,7 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3.5rem; /* code modifié*/
     white-space: normal;
   }
   .hero-text {
