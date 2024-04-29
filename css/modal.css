@@ -31,9 +31,9 @@ img {
 }
 @media screen and (max-width: 540px) {
   img {
-    padding-right: 1rem; /* code modifié*/
-    padding-top: 7px; /* code ajouté*/
-    width: 100%; /* code ajouté*/
+    padding-right: 1rem;
+    padding-top: 7px;
+    width: 100%;
   }
 } 
 
@@ -41,21 +41,14 @@ img {
   overflow: hidden;
   margin: 3.5%;
 }
-/* code ajouté*/
-/*@media screen and (max-width: 540px) {
-  .topnav {
-    padding: 4% 5px;
-    margin: 0px;
-  }
-}
-/* code ajouté*/
+
 .header-logo {
     float: left;
 }
 @media screen and (max-width: 540px) {
   .header-logo {
-    height: 52px; /* code ajouté*/
-    width: 70%; /* code ajouté*/
+    height: 52px;
+    width: 70%;
 }
 }
 .main-navbar {
@@ -94,9 +87,6 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    /*position: absolute;
-    right: 0;
-    top: 0;*/
   }
 }
 
@@ -121,7 +111,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: 10px; /* code modifié , de base valeur a -15*/
+    margin-top: 10px;
   }
 } 
 
