@@ -1,10 +1,5 @@
-
-function main() {
-    initEvents()
-}
-main()
-
-function initEvents() {
+//fonction qui initie les événements
+function initEventsValid() {
     let prenom = document.getElementById("first")
     let nom = document.getElementById("last")
     let email = document.getElementById("email")
@@ -14,51 +9,51 @@ function initEvents() {
     let checkCondition = document.getElementById("checkbox1")
     let form = document.querySelector("form")
     // J'Init mes évènements qui vérifient les champs grâce aux fonctions appelées
-    prenom.addEventListener("change", () => { checkPrenom () })
-    nom.addEventListener("change", () => { checkNom () })
-    email.addEventListener("change", () => { checkEmail () })
-    birthdate.addEventListener("change", () => { checkBirthdate () })
-    quantity.addEventListener("change", () => { checkQuantity () })
+    prenom.addEventListener("change", () => { checkPrenom() })
+    nom.addEventListener("change", () => { checkNom() })
+    email.addEventListener("change", () => { checkEmail() })
+    birthdate.addEventListener("change", () => { checkBirthdate() })
+    quantity.addEventListener("change", () => { checkQuantity() })
     localisations.forEach(localisation => {
         localisation.addEventListener("change", () => { checkLocalisation() })
     })
-    checkCondition.addEventListener("change", () => { checkConditionValid () })
+    checkCondition.addEventListener("change", () => { checkConditionValid() })
     createConfirmation() // Je fais appel à la fonction
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", function (event) {
         if (!checkForm()) { // Je vérifie le boolean de la fonction
             event.preventDefault() // Empêcher le rechargement de la page si les champs ne sont pas valides
-        }else{
+        } else {
             event.preventDefault()
-            if (sendForm()){ showMessageConfirmation()} // Je vérifie le boolean de la fonction et j'appelle showMessageConfirmation
+            if (sendForm()) { showMessageConfirmation() } // Je vérifie le boolean de la fonction et j'appelle showMessageConfirmation
         }
     })
 }
+initEventsValid()
+
 // function qui vérifie les champs du formulaire   
-function checkForm (){
+function checkForm() {
     // si tout les champs sont remplis
-    if (checkPrenom() && checkNom() && checkEmail()&& checkBirthdate()&& checkQuantity() && checkLocalisation() && checkConditionValid()){
-        console.log("tous est ok")
+    if (checkPrenom() && checkNom() && checkEmail() && checkBirthdate() && checkQuantity() && checkLocalisation() && checkConditionValid()) {
+
         return true
-    }else{
-        console.log("rien est ok")
-        return false
     }
-    
+
+    return false
 }
+
 // function qui vérifie que les champs sont bons avant d'envoyer les données
-function sendForm(){
+function sendForm() {
     let form = document.querySelector("form")
-    if (checkForm()){
-        console.log("envoie des données")
+    if (checkForm()) {
         form.reset() // Je vide le form
         return true
 
     }
-        console.log("erreur")
-        return false
+    return false
 }
+
 // Je créé les éléments de la modal confirmation dans le DOM
-function createConfirmation(){
+function createConfirmation() {
     const contentGeneral = document.querySelector('.content')
     // Creation élément
     const confirmationDiv = document.createElement('div')
@@ -78,76 +73,79 @@ function createConfirmation(){
     confirmationDiv.appendChild(confirmationP)
     confirmationDiv.appendChild(closeButton)
 
-    closeButton.addEventListener('click', () =>{
+    closeButton.addEventListener('click', () => {
         // Je change le style de la modal du message de confirmation pour qu'elle ne s'affiche plus
         let confirmationDiv = document.querySelector(".confirmation")
-        confirmationDiv.style.display = "none"        
+        confirmationDiv.style.display = "none"
         // Je change le style de la modal pour qu'elle ne s'affiche plus
         const modalbg = document.querySelector(".bground")
         modalbg.style.display = "none"
         // Je change le style du form pour qu'il soit visible
         let modalBody = document.querySelector(".modal-body")
         modalBody.style.display = "block"
-    } )
+    })
 
 }
-function showMessageConfirmation(){
+
+// fonction qui affiche le message de confirmation
+function showMessageConfirmation() {
     let confirmation = document.querySelector(".confirmation")
     // Je vérifie sur l'élément confirmation existe
-    if(confirmation){
+    if (confirmation) {
         let content = document.querySelector(".modal-body")
         content.style.display = "none"
         let confirmation = document.querySelector(".confirmation")
         confirmation.style.display = "flex"
-    }else{
+    } else {
         let content = document.querySelector(".modal-body")
         content.style.display = "block"
         let confirmation = document.querySelector(".confirmation")
         confirmation.style.display = "none"
     }
 }
-// fonction qui vérifie mes input text (prenom et nom)
+
+// fonction qui vérifie mes input text (prénom et nom)
 function checkInputText(id) {
     let input = document.getElementById(id)
     // Je masque le style de l'erreur en appelant la fonction
     hideErrorMessage(input)
 
     if (input.value === "" || input.value === null || input.value.length < 2) {
-        console.log("danger moins de 2 caractères")
         showError(input)
         return false
-    } else {
-        console.log(input.value)
-        return true
     }
+
+    return true
 }
 
+//fonction qui vérifie le prénom
 function checkPrenom() {
     // Je cible l'élément first pour la fonction
     return checkInputText("first")
 }
 
-function checkNom(){
+//fonction qui vérifie le nom
+function checkNom() {
     return checkInputText("last")
 }
 
-function checkEmail(){
+//fonction qui vérifie l'email entré
+function checkEmail() {
     let email = document.getElementById("email")
     hideErrorMessage(email)
     // Je définis l'expression régulière que doit avoir mon champ email
     let emailRegExp = new RegExp(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-_.]+\.[a-zA-Z0-9-_.]+$/)
     // Je test la valeur de l'email
     if (!emailRegExp.test(email.value)) {
-        console.log("danger, email faux")
         showError(email)
         return false
-    } else {
-        console.log("email OK")
-        return true
     }
+
+    return true
 }
 
-function checkBirthdate(){
+// fonction qui vérifie la date de naissance
+function checkBirthdate() {
     let birthdate = document.getElementById("birthdate")
     hideErrorMessage(birthdate)
     // Je recupere la date entrée
@@ -156,29 +154,27 @@ function checkBirthdate(){
     // Je crée minAgedate pour avoir une date qui correspond à 18 ans et donc un âge minimum
     let minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate() + 1)
     // Je vérifie que la date entrée est plus grande que l'âge minimum
-    if(birthdate.value === "" || birthdate.value === null || date > minAgeDate){
-        console.log("danger, date fausse ou dans le futur", birthdate.value)
+    if (birthdate.value === "" || birthdate.value === null || date > minAgeDate) {
         showError(birthdate)
         return false
-    }else{
-        console.log(date, "ok")
-        return true
     }
+
+    return true
 }
 
-function checkQuantity(){
+// fonction qui vérifie la quantité entrée
+function checkQuantity() {
     let quantity = document.getElementById("quantity")
     hideErrorMessage(quantity)
 
     if (quantity.value === "" || quantity.value === null || quantity.value < 0 || quantity.value >= 100) {
-        console.log("danger, Quantité fausse")
         showError(quantity)
         return false
-    } else {
-        console.log("quantité OK", quantity.value)
-        return true
     }
+
+    return true
 }
+
 // function qui vérifie si une des villes est selectionnées
 function checkLocalisation() {
     // Je vérifie si getLocalisation est vide
@@ -190,16 +186,16 @@ function checkLocalisation() {
         return true
     }
 }
+
 // function qui récupère la valeur de la localisation selectionné
 function getLocalisation() {
-    let choice=""
+    let choice = ""
 
     let listeLocalisation = document.querySelectorAll("input[name=location]")
     // Avec la boucle, je vérifie si une des villes est checked et je récupère sa valeur
     for (let i = 0; i < listeLocalisation.length; i++) {
         if (listeLocalisation[i].checked) {
-            choice=listeLocalisation[i].value
-            console.log(choice)
+            choice = listeLocalisation[i].value
         }
     }
     return choice
@@ -212,16 +208,15 @@ function checkConditionValid() {
     // Je vérifie si les conditions générales sont cochées
     if (checkCondition.checked) {
         check = true
-        console.log(check, "check")
-    }else{
+    } else {
         showError(checkCondition)
-        console.log(check, "non check")
         check = false
     }
     return check
 }
+
 // Fonction qui cible un champs en erreur
-function showError(input){
+function showError(input) {
     const errorMessages = {
         first: "Entrer 2 caractères ou plus",
         last: "Entrer 2 caractères ou plus",
@@ -237,7 +232,8 @@ function showError(input){
     formControl.setAttribute('data-error-visible', 'true')
 }
 
-function hideErrorMessage(input){
+//fonction qui cache le message d'erreur
+function hideErrorMessage(input) {
     const formControl = input.parentElement
     // Je retire l'attribut correspondant à l'erreur
     formControl.removeAttribute('data-error')
